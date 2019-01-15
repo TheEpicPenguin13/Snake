@@ -31,7 +31,7 @@ class Snake(Turtle):
     def up(self): self.direction = 3
 
     #-- Update --#
-    def update(self):
+    def update(self, fruit):
         if self.direction == 0:
             self.x += 1
         elif self.direction == 1:
@@ -41,4 +41,13 @@ class Snake(Turtle):
         else:
             self.y += 1
 
+        self.check_collision(fruit)
         self.goto(self.get_positionX(), self.get_positionY())
+
+    #-- Main Functions --#
+    def die(self):
+        self.goto(self.startX, self.startY)
+
+    def check_collision(self, fruit):
+        if fruit.pos() == self.pos():
+            fruit.move()

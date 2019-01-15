@@ -23,6 +23,11 @@ class Fruit(Turtle):
         self.shapesize(32 / 22)
         self.goto(self.startX + (self.x * 32), self.startY + (self.y * 32))
 
+    #-- Main Functions --#
+    def move(self):
+        self.x, self.y = self.get_specific_num(32)
+        self.goto(self.startX + (self.x * 32), self.startY + (self.y * 32))
+
     #-- Helper Functions --#
     def get_specific_num(self, range):
         num1 = randint(int(-self.TILESX / 2), int(self.TILESX / 2))

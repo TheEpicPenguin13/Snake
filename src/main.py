@@ -56,7 +56,7 @@ def load():
 
 def update():
     wn.update()
-    snake.update()
+    snake.update(fruit)
     sleep(0.2)
 
 #-- Key Input --#
