@@ -16,6 +16,7 @@ grid = []
 wn = Screen()
 wn.title("Snake")
 wn.setup(WIDTH, HEIGHT)
+wn.tracer(0)
 
 #-- Helper Functions --#
 def initializeGrid():
@@ -24,13 +25,31 @@ def initializeGrid():
         for x in range(TILESX):
             grid.append(EMPTY)
 
+#- Debug -#
+def drawGrid():
+    t = Turtle(); t.ht(); t.speed(0); t.pu()
+    t.goto(-WIDTH / 2, -HEIGHT / 2); t.color("black"); t.pd()
+
+    for y in range(int(-HEIGHT / 2), int(HEIGHT / 2), 32):
+        for x in range(int(-WIDTH / 2), int(WIDTH / 2), 32):
+            for i in range(4):
+                t.pd()
+                drawSquare(t, 32)
+                t.pu()
+            t.goto(x, y)
+
+def drawSquare(t, width):
+    t.fd(width); t.left(90)
+
 #-- Load / Update --#
 def load():
     initializeGrid()
+    drawGrid()
 
 def update():
-    pass
+    wn.update()
 
 #-- Main Loop  --#
 load()
-wn.mainloop()
+while True:
+    update()
