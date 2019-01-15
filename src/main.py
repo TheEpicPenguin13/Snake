@@ -1,5 +1,6 @@
 from turtle import Screen, Turtle
 from snake import Snake
+from fruit import Fruit
 from time import sleep
 
 #-- Constant Vars --#
@@ -23,6 +24,7 @@ wn.tracer(0)
 
 #-- Instances --#
 snake = Snake()
+fruit = Fruit()
 
 #-- Helper Functions --#
 def initializeGrid():
