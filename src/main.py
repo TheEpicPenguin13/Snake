@@ -12,9 +12,6 @@ TILESY = int(HEIGHT / 2)
 EMPTY = 0
 SNAKE_HEAD = 1
 
-#-- Vars --#
-grid = []
-
 #-- Setup Screen --#
 wn = Screen()
 wn.title("Snake")
@@ -26,12 +23,12 @@ wn.tracer(0)
 snake = Snake()
 fruit = Fruit()
 
-#-- Helper Functions --#
-def initializeGrid():
-    for y in range(TILESY):
-        grid.append([])
-        for x in range(TILESX):
-            grid.append(EMPTY)
+#-- Main Functions --#
+def check_snake_wall_collision():
+    if snake.xcor() >= WIDTH / 2 or snake.xcor() <= -WIDTH / 2:
+        snake.die()
+    elif snake.ycor() >= HEIGHT / 2 or snake.ycor() <= -HEIGHT / 2:
+        snake.die()
 
 #- Debug -#
 def drawGrid():
@@ -51,12 +48,12 @@ def drawSquare(t, width):
 
 #-- Load / Update --#
 def load():
-    initializeGrid()
     drawGrid()
 
 def update():
     wn.update()
     snake.update(fruit)
+    check_snake_wall_collision()
     sleep(0.2)
 
 #-- Key Input --#

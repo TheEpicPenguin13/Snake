@@ -10,6 +10,9 @@ class Snake(Turtle):
         self.startX = -16
         self.startY = 0
 
+        self.width = 1088
+        self.height = 736
+
         self.x = 0
         self.y = 0
         self.direction = 0
@@ -46,6 +49,7 @@ class Snake(Turtle):
 
     #-- Main Functions --#
     def die(self):
+        self.x, self.y = 0, 0
         self.goto(self.startX, self.startY)
 
     def check_collision(self, fruit):
