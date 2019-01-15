@@ -1,4 +1,6 @@
 from turtle import Screen, Turtle
+from snake import Snake
+from time import sleep
 
 #-- Constant Vars --#
 WIDTH = 1088
@@ -17,6 +19,9 @@ wn = Screen()
 wn.title("Snake")
 wn.setup(WIDTH, HEIGHT)
 wn.tracer(0)
+
+#-- Instances --#
+snake = Snake()
 
 #-- Helper Functions --#
 def initializeGrid():
@@ -48,6 +53,8 @@ def load():
 
 def update():
     wn.update()
+    snake.update()
+    sleep(0.2)
 
 #-- Main Loop  --#
 load()
