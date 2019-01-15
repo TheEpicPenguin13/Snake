@@ -18,6 +18,7 @@ grid = []
 wn = Screen()
 wn.title("Snake")
 wn.setup(WIDTH, HEIGHT)
+wn.bgcolor("black")
 wn.tracer(0)
 
 #-- Instances --#
@@ -32,8 +33,8 @@ def initializeGrid():
 
 #- Debug -#
 def drawGrid():
-    t = Turtle(); t.ht(); t.speed(0); t.pu()
-    t.goto(-WIDTH / 2, -HEIGHT / 2); t.color("black"); t.pd()
+    t = Turtle(); t.ht(); t.speed(0); t.pu();
+    t.goto(-WIDTH / 2, -HEIGHT / 2); t.color("cyan"); t.pd()
 
     for y in range(int(-HEIGHT / 2), int(HEIGHT / 2), 32):
         for x in range(int(-WIDTH / 2), int(WIDTH / 2), 32):
@@ -55,6 +56,13 @@ def update():
     wn.update()
     snake.update()
     sleep(0.2)
+
+#-- Key Input --#
+wn.listen()
+wn.onkey(snake.up, "w")
+wn.onkey(snake.left, "a")
+wn.onkey(snake.down, "s")
+wn.onkey(snake.right, "d")
 
 #-- Main Loop  --#
 load()
