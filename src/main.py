@@ -9,15 +9,15 @@ HEIGHT = 736
 TILESX = int(WIDTH / 2)
 TILESY = int(HEIGHT / 2)
 
-EMPTY = 0
-SNAKE_HEAD = 1
-
 #-- Setup Screen --#
 wn = Screen()
 wn.title("Snake")
 wn.setup(WIDTH, HEIGHT)
 wn.bgcolor("black")
 wn.tracer(0)
+
+#-- Vars ==#
+snakes = []
 
 #-- Instances --#
 snake = Snake()
