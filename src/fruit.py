@@ -37,4 +37,4 @@ class Fruit(Turtle):
             num1 = randint(int(-self.TILESX / 2), int(self.TILESX / 2))
             num2 = randint(int(-self.TILESY / 2), int(self.TILESY / 2))
 
-        return (num1, num2)
+        return num1, num2
