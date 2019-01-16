@@ -19,5 +19,5 @@ class SnakeBody(Turtle):
         self.shapesize(32 / 22)
         self.color("#09c119")
 
-    def update(self, lastX, lastY):
-        self.goto(self.startX + (lastX * 32), self.startY + (lastY * 32))
+    def update(self, x, y):
+        self.goto(self.startX + (x * 32), self.startY + (y * 32))

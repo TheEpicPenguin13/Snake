@@ -54,10 +54,3 @@ class Snake(Turtle):
     def die(self):
         self.x, self.y = 0, 0
         self.goto(self.startX, self.startY)
-
-    def check_collision(self, fruit, array, snakeBody):
-        if fruit.pos() == self.pos():
-            fruit.move()
-            array.append(snakeBody)
-
-

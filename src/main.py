@@ -31,6 +31,14 @@ def check_snake_wall_collision():
     elif snake.ycor() >= HEIGHT / 2 or snake.ycor() <= -HEIGHT / 2:
         snake.die()
 
+def snake_move():
+    snakes[-1].x, snakes[-1].y = snake.prevX, snake.prevY
+    snakes[-1].update(snakes[-1].x, snakes[-1].y)
+    temp = []
+    temp.append(snakes[-1])
+    snakes.pop(-1)
+    snakes.insert(1, temp[0])
+
 #- Debug -#
 def drawGrid():
     t = Turtle(); t.ht(); t.speed(0); t.pu()
@@ -49,21 +57,22 @@ def drawSquare(t, width):
 
 #-- Load / Update --#
 def load():
-    drawGrid()
+    #drawGrid()
     snakes.append(snake)
 
 def update():
     wn.update()
     snake.update()
     check_snake_wall_collision()
-    snake.check_collision(fruit, snakes, SnakeBody(snake.prevX, snake.prevY))
+
+    if fruit.pos() == snake.pos():
+        fruit.move()
+        snakes.append(SnakeBody(snake.prevX, snake.prevY))
 
     if len(snakes) > 1:
-        snakes[-1].update(snake.prevX, snake.prevY)
-        print(5)
+        snake_move()
 
     sleep(0.2)
-    print(snakes)
 
 #-- Key Input --#
 wn.listen()
@@ -76,4 +85,3 @@ wn.onkey(snake.r, "d")
 load()
 while True:
     update()
-
