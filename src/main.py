@@ -66,7 +66,7 @@ def update():
     check_snake_wall_collision()
 
     if fruit.pos() == snake.pos():
-        fruit.move()
+        fruit.move(snakes)
         snakes.append(SnakeBody(snake.prevX, snake.prevY))
 
     if len(snakes) > 1:

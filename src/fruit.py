@@ -24,9 +24,11 @@ class Fruit(Turtle):
         self.goto(self.startX + (self.x * 32), self.startY + (self.y * 32))
 
     #-- Main Functions --#
-    def move(self):
-        self.x, self.y = self.get_specific_num(32)
-        self.goto(self.startX + (self.x * 32), self.startY + (self.y * 32))
+    def move(self, array):
+        for i in array:
+            if i.x == self.x and i.y == self.y:
+                self.x, self.y = self.get_specific_num(32)
+                self.goto(self.startX + (self.x * 32), self.startY + (self.y * 32))
 
     #-- Helper Functions --#
     def get_specific_num(self, range):
