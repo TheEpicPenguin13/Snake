@@ -51,6 +51,9 @@ class Snake(Turtle):
         self.goto(self.get_positionX(), self.get_positionY())
 
     #-- Main Functions --#
-    def die(self):
+    def die(self, snakes):
+        for i in range(len(snakes) - 1):
+                snakes[1].goto(-100000, -110000)
+                snakes.pop(1)
         self.x, self.y = 0, 0
-        self.goto(self.startX, self.startY)
+        self.goto(self.get_positionX(), self.startY)

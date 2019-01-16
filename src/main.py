@@ -2,6 +2,7 @@ from turtle import Screen, Turtle
 from snake import Snake
 from fruit import Fruit
 from snakebody import SnakeBody
+from gui import Background
 from time import sleep
 
 #-- Constant Vars --#
@@ -27,9 +28,10 @@ fruit = Fruit()
 #-- Main Functions --#
 def check_snake_wall_collision():
     if snake.xcor() >= WIDTH / 2 or snake.xcor() <= -WIDTH / 2:
-        snake.die()
+        snake.die(snakes)
     elif snake.ycor() >= HEIGHT / 2 or snake.ycor() <= -HEIGHT / 2:
-        snake.die()
+        snake.die(snakes)
+    print(len(snakes))
 
 def snake_move():
     snakes[-1].x, snakes[-1].y = snake.prevX, snake.prevY
@@ -58,6 +60,7 @@ def drawSquare(t, width):
 #-- Load / Update --#
 def load():
     #drawGrid()
+    #Background(WIDTH, HEIGHT)
     snakes.append(snake)
 
 def update():
@@ -71,6 +74,10 @@ def update():
 
     if len(snakes) > 1:
         snake_move()
+        for i in snakes:
+            if snake.pos() == i.pos():
+                if i != snake:
+                    snake.die(snakes)
 
     sleep(0.2)
 
@@ -80,6 +87,11 @@ wn.onkey(snake.up, "w")
 wn.onkey(snake.l, "a")
 wn.onkey(snake.down, "s")
 wn.onkey(snake.r, "d")
+
+wn.onkey(snake.up, "Up")
+wn.onkey(snake.l, "Left")
+wn.onkey(snake.down, "Down")
+wn.onkey(snake.r, "Right")
 
 #-- Main Loop  --#
 load()
