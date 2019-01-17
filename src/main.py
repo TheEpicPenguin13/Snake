@@ -1,9 +1,9 @@
 """
 Snake (clone), by John McAllister
 
-If you've played snake, than you know exactly how to play this, and thats great!
+If you've played snake, than you know exactly how to play this, and that's great!
 For those who haven't played snake, it is quite simple. You are a snake, (the
-green thing moving on your screen) Your goal is to eat the red dot to get longer.
+green thing moving on your screen). Your goal is to eat the red dot to get longer.
 Just don't hit the wall, or yourself and you should do fine!
 
 Now your probably wondering, "How do I move my snake?". The answer to this is
@@ -14,14 +14,15 @@ W, UpArrow = Up
 A, LeftArrow = Left
 S, DownArrow = Down
 D, RightArrow = Right
+T, Quit
 
 Check List:
 Title: Done
 Name: Done
 Description: Done
 Directions: Done
-Question Input: Check With Teacher
-Variables: Done
+Question Input: ?
+Variables: Doneww
 Two Functions: Done
 Use Of List: Done
 Strings: Done
@@ -54,10 +55,11 @@ W, UpArrow = Up
 A, LeftArrow = Left
 S, DownArrow = Down
 D, RightArrow = Right
+T, Quit
 """
 )
 
-from turtle import Screen, Turtle
+from turtle import Screen
 from snake import Snake
 from fruit import Fruit
 from snakebody import SnakeBody
@@ -78,7 +80,10 @@ wn.tracer(0)            # useful later)
 #-- Vars ==#
 snakes = []
 score = 0
-high_score = 0
+local_high_score = 0
+global_high_score = 0
+
+running = True
 
 #-- Instances --#
 snake = Snake()
@@ -93,11 +98,30 @@ def check_snake_wall_collision():
         snake.die(snakes)
         get_highscore()
 
-def get_highscore():               # Basically says, "Hey! If the current high
-    global high_score, score       # score is less than your score, make your
-    if high_score < score:         # score the high score! And then set the
-        high_score = score         # score to 0."
+def get_highscore():
+    global global_high_score, local_high_score, score
+    if local_high_score < score:
+        local_high_score = score
+    if global_high_score < local_high_score:
+        global_high_score = local_high_score
     score = 0
+
+def leave():
+    global running
+    set_global()
+    running = False
+
+def get_global():
+    global global_high_score
+    f = open("global_score.txt", "r")
+    global_high_score = int(f.read())
+    f.close()
+
+def set_global():
+    global global_high_score
+    f = open("global_score.txt", "w")
+    f.write(str(global_high_score))
+    f.close()
 
 def snake_move():
     snakes[-1].x, snakes[-1].y = snake.prevX, snake.prevY
@@ -107,16 +131,19 @@ def snake_move():
     snakes.pop(-1)               # the end of the snake, and puts it at the front.
     snakes.insert(1, temp[0])    # This makes it look like the snake is moving.
 
-def write_score(text, text2):
+def write_score(text, text2, text3):
     s = Text("#1a1a1a")
     s.set_pos((WIDTH / 2 - 5 * 32) / 2, 300)
     s.write_text(text)
     s.set_pos((WIDTH / 2 - 5 * 32) / 2, 200)
     s.write_text(text2)
+    s.set_pos((WIDTH / 2 - 5 * 32) / 2, 100)
+    s.write_text(text3)
     s.clear()
 
 #-- Load / Update --#
 def load():
+    get_global()
     Background(WIDTH, HEIGHT)
     snakes.append(snake)
 
@@ -125,14 +152,14 @@ def update():
     wn.update()                                                                # It updates the window, updates the snake, and then does
     snake.update()                                                             # the collision checking. It writes the score, and runs most
     check_snake_wall_collision()                                               # of the methods from other classes.
-    write_score("Score: " + str(score), "High Score: " + str(high_score))
+    write_score("Score: " + str(score), "High Score: " + str(local_high_score), "Global High Score: " + str(global_high_score))
 
     if fruit.pos() == snake.pos():
         fruit.move(snakes)
         snakes.append(SnakeBody(snake.prevX, snake.prevY))
 
     if len(snakes) > 1:
-        score = len(snakes) - 1
+        score = (len(snakes) - 1) * 100
         snake_move()
         for i in snakes:
             if snake.pos() == i.pos():
@@ -147,6 +174,7 @@ wn.onkey(snake.up, "w")
 wn.onkey(snake.l, "a")
 wn.onkey(snake.down, "s")
 wn.onkey(snake.r, "d")
+wn.onkey(leave, "t")
 
 wn.onkey(snake.up, "Up")
 wn.onkey(snake.l, "Left")
@@ -155,5 +183,5 @@ wn.onkey(snake.r, "Right")
 
 #-- Main Loop  --#
 load()
-while True:
+while running:
     update()

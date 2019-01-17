@@ -23,6 +23,9 @@ class Fruit(Turtle):
         self.shapesize(32 / 22)
         self.goto(self.startX + (self.x * 32), self.startY + (self.y * 32))
 
+    def when_hit(self, angle):
+        self.setheading(self.heading() + angle)
+
     #-- Main Functions --#
     def move(self, array):
         for i in array:
@@ -32,11 +35,11 @@ class Fruit(Turtle):
 
     #-- Helper Functions --#
     def get_specific_num(self, range):                                     # Basically gets a random number
-        num1 = randint(int(-self.TILESX / 2), 5)                           # if that number is a multiple of
+        num1 = randint(int(-self.TILESX / 2) + 1, 5)                       # if that number is a multiple of
         num2 = randint(int(-self.TILESY / 2), int(self.TILESY / 2))        # 32
 
         while num1 % range != 0 and num2 % range != 0:
-            num1 = randint(int(-self.TILESX / 2), 5)
+            num1 = randint(int(-self.TILESX / 2) + 1, 5)
             num2 = randint(int(-self.TILESY / 2), int(self.TILESY / 2))
 
         return num1, num2
