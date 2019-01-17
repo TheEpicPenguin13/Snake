@@ -2,7 +2,7 @@ from turtle import Screen, Turtle
 from snake import Snake
 from fruit import Fruit
 from snakebody import SnakeBody
-from gui import Background
+from gui import Background, Text
 from time import sleep
 
 #-- Constant Vars --#
@@ -20,6 +20,8 @@ wn.tracer(0)
 
 #-- Vars ==#
 snakes = []
+score = 0
+high_score = 0
 
 #-- Instances --#
 snake = Snake()
@@ -29,8 +31,16 @@ fruit = Fruit()
 def check_snake_wall_collision():
     if snake.x >= 6 or snake.xcor() <= -WIDTH / 2:
         snake.die(snakes)
+        get_highscore()
     elif snake.ycor() >= HEIGHT / 2 or snake.ycor() <= -HEIGHT / 2:
         snake.die(snakes)
+        get_highscore()
+
+def get_highscore():
+    global high_score, score
+    if high_score < score:
+        high_score = score
+    score = 0
 
 def snake_move():
     snakes[-1].x, snakes[-1].y = snake.prevX, snake.prevY
@@ -39,6 +49,14 @@ def snake_move():
     temp.append(snakes[-1])
     snakes.pop(-1)
     snakes.insert(1, temp[0])
+
+def write_score(text, text2):
+    s = Text("#1a1a1a")
+    s.set_pos((WIDTH / 2 - 5 * 32) / 2, 300)
+    s.write_text(text)
+    s.set_pos((WIDTH / 2 - 5 * 32) / 2, 200)
+    s.write_text(text2)
+    s.clear()
 
 #- Debug -#
 def drawGrid():
@@ -63,21 +81,24 @@ def load():
     snakes.append(snake)
 
 def update():
+    global score
     wn.update()
     snake.update()
     check_snake_wall_collision()
+    write_score("Score: " + str(score), "High Score: " + str(high_score))
 
     if fruit.pos() == snake.pos():
         fruit.move(snakes)
         snakes.append(SnakeBody(snake.prevX, snake.prevY))
 
     if len(snakes) > 1:
+        score = len(snakes) - 1
         snake_move()
         for i in snakes:
             if snake.pos() == i.pos():
                 if i != snake:
                     snake.die(snakes)
-
+                    get_highscore()
     sleep(0.2)
 
 #-- Key Input --#

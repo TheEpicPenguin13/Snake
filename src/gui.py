@@ -9,6 +9,7 @@ class GUI(Turtle):
         self.ht()
         self.pu()
 
+#-- Background GUI Subclass --#
 class Background(GUI):
 
     def __init__(self, screenWidth, screenHeight):
@@ -36,3 +37,17 @@ class Background(GUI):
             self.forward(self.screenHeight)
             self.right(90)
         self.end_fill()
+
+#-- Text GUI Subclass --#
+class Text(GUI):
+
+    def __init__(self, color):
+        GUI.__init__(self)
+
+        self.color(color)
+
+    def set_pos(self, x, y):
+        self.goto(x, y)
+
+    def write_text(self, text):
+        self.write(text, font=("Arial", 24, "normal"))
