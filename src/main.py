@@ -87,9 +87,9 @@ fruit = Fruit()
 #-- Main Functions --#
 def check_snake_wall_collision():
     if snake.x >= 6 or snake.xcor() <= -WIDTH / 2: # This checks whether the snake has reached certain points and if so,
-        snake.die(snakes)               # kills the snake, and tries to height of the screen, and another
-        get_highscore()                 # time for the width get the highcore. It does this twice, once for the height
-    elif snake.ycor() >= HEIGHT / 2 or snake.ycor() <= -HEIGHT / 2: # and another time for the width
+        snake.die(snakes)               # kills the snake, it checks the x and y position of the snake, and afterwards
+        get_highscore()                 # updates score.
+    elif snake.ycor() >= HEIGHT / 2 or snake.ycor() <= -HEIGHT / 2:
         snake.die(snakes)
         get_highscore()
 
