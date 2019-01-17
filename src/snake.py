@@ -52,8 +52,8 @@ class Snake(Turtle):
 
     #-- Main Functions --#
     def die(self, snakes):
-        for i in range(len(snakes) - 1):
-                snakes[1].goto(-100000, -110000)
-                snakes.pop(1)
+        for i in range(len(snakes) - 1):                   # When you die, the
+                snakes[1].goto(-100000, -110000)           # SnakeBody parts go into space and
+                snakes.pop(1)                              # Get removed from the snake array.
         self.x, self.y = 0, 0
         self.goto(self.get_positionX(), self.startY)

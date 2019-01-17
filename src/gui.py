@@ -28,6 +28,7 @@ class Background(GUI):
         self.draw_background()
         self.pu()
 
+    # Draws a giant rectangle as a background.
     def draw_background(self):
         self.fillcolor("#cc9900")
         self.begin_fill()
