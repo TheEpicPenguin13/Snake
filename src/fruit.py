@@ -26,17 +26,17 @@ class Fruit(Turtle):
     #-- Main Functions --#
     def move(self, array):
         for i in array:
-            if i.x == self.x and i.y == self.y:
+            if i.pos() == self.pos():
                 self.x, self.y = self.get_specific_num(32)
                 self.goto(self.startX + (self.x * 32), self.startY + (self.y * 32))
 
     #-- Helper Functions --#
     def get_specific_num(self, range):
-        num1 = randint(int(-self.TILESX / 2), int(self.TILESX / 2))
+        num1 = randint(int(-self.TILESX / 2), 5)
         num2 = randint(int(-self.TILESY / 2), int(self.TILESY / 2))
 
         while num1 % range != 0 and num2 % range != 0:
-            num1 = randint(int(-self.TILESX / 2), int(self.TILESX / 2))
+            num1 = randint(int(-self.TILESX / 2), 5)
             num2 = randint(int(-self.TILESY / 2), int(self.TILESY / 2))
 
         return num1, num2

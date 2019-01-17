@@ -27,11 +27,10 @@ fruit = Fruit()
 
 #-- Main Functions --#
 def check_snake_wall_collision():
-    if snake.xcor() >= WIDTH / 2 or snake.xcor() <= -WIDTH / 2:
+    if snake.x >= 6 or snake.xcor() <= -WIDTH / 2:
         snake.die(snakes)
     elif snake.ycor() >= HEIGHT / 2 or snake.ycor() <= -HEIGHT / 2:
         snake.die(snakes)
-    print(len(snakes))
 
 def snake_move():
     snakes[-1].x, snakes[-1].y = snake.prevX, snake.prevY
@@ -60,7 +59,7 @@ def drawSquare(t, width):
 #-- Load / Update --#
 def load():
     #drawGrid()
-    #Background(WIDTH, HEIGHT)
+    Background(WIDTH, HEIGHT)
     snakes.append(snake)
 
 def update():
