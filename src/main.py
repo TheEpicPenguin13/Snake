@@ -89,14 +89,24 @@ running = True
 snake = Snake()
 fruit = Fruit(snakes)
 
+s = Text("#1a1a1a")
+a = Text("#1a1a1a")
+d = Text("#1a1a1a")
+
 #-- Main Functions --#
 def check_snake_wall_collision():
     if snake.x >= 6 or snake.xcor() <= -WIDTH / 2: # This checks whether the snake has reached certain points and if so,
         snake.die(snakes)               # kills the snake, it checks the x and y position of the snake, and afterwards
         get_highscore()                 # updates score.
+        clear([s, a, d])
+        write_score("Score: " + str(score), "High Score: " + str(local_high_score),
+                    "Global High Score: " + str(global_high_score))
     elif snake.ycor() >= HEIGHT / 2 or snake.ycor() <= -HEIGHT / 2:
         snake.die(snakes)
         get_highscore()
+        clear([s, a, d])
+        write_score("Score: " + str(score), "High Score: " + str(local_high_score),
+                    "Global High Score: " + str(global_high_score))
 
 def get_highscore():
     global global_high_score, local_high_score, score
@@ -139,41 +149,58 @@ def snake_move():
     snakes.insert(1, temp[0])    # This makes it look like the snake is moving.
 
 def write_score(text, text2, text3):
-    s = Text("#1a1a1a")
+    s.clear()
     s.set_pos((WIDTH / 2 - 5 * 32 - 40) / 2, 300)
     s.write_text(text)
-    s.set_pos((WIDTH / 2 - 5 * 32 - 40) / 2, 200)
-    s.write_text(text2)
-    s.set_pos((WIDTH / 2 - 5 * 32 - 40) / 2, 100)
-    s.write_text(text3)
-    s.clear()
+    a.clear()
+    a.set_pos((WIDTH / 2 - 5 * 32 - 40) / 2, 200)
+    a.write_text(text2)
+    d.clear()
+    d.set_pos((WIDTH / 2 - 5 * 32 - 40) / 2, 100)
+    d.write_text(text3)
 
 #-- Load / Update --#
 def load():
     get_global()
     Background(WIDTH, HEIGHT)
     snakes.append(snake)
+    clear([s, a, d])
+    write_score("Score: " + str(score), "High Score: " + str(local_high_score),
+                "Global High Score: " + str(global_high_score))
+
+def clear(obj):
+    for i in obj:
+        i.clear()
 
 def update():
-    global score                                                               # This whole update method is the meat of this program.
+    global score, global_high_score, snakes
+    global s, a, d                                                             # This whole update method is the meat of this program.
     wn.update()                                                                # It updates the window, updates the snake, and then does
     snake.update()                                                             # the collision checking. It writes the score, and runs most
     check_snake_wall_collision()                                               # of the methods from other classes.
-    write_score("Score: " + str(score), "High Score: " + str(local_high_score), "Global High Score: " + str(global_high_score))
 
     if fruit.pos() == snake.pos():
         fruit.move(snakes)
         snakes.append(SnakeBody(snake.prevX, snake.prevY))
+        clear([s, a, d])
+        write_score("Score: " + str((len(snakes) - 1) * 100), "High Score: " + str(local_high_score),
+                    "Global High Score: " + str(global_high_score))
 
+    score = (len(snakes) - 1) * 100
     if len(snakes) > 1:
-        score = (len(snakes) - 1) * 100
         snake_move()
         for i in snakes:
             if snake.pos() == i.pos():
                 if i != snake:
                     snake.die(snakes)
                     get_highscore()
-    sleep(0.2)
+                    clear([s, a, d])
+                    write_score("Score: " + str(score), "High Score: " + str(local_high_score),
+                                "Global High Score: " + str(global_high_score))
+            if fruit.pos() == i.pos():
+                fruit.move(snakes)
+
+    sleep(0.125)
 
 #-- Key Input --#
 wn.listen()

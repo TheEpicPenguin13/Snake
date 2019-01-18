@@ -22,8 +22,9 @@ class Snake(Turtle):
         self.shape("square")
         self.color("green")
         self.shapesize(32 / 22)
-        self.goto(self.startX, self.startY)
         self.pu()
+        self.goto(self.startX, self.startY)
+
 
     #-- Helper Function --#
     def get_positionX(self): return self.startX + (self.x * 32)
