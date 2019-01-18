@@ -14,7 +14,7 @@ W, UpArrow = Up
 A, LeftArrow = Left
 S, DownArrow = Down
 D, RightArrow = Right
-T, Quit
+Escape, Quit
 
 Check List:
 Title: Done
@@ -55,7 +55,7 @@ W, UpArrow = Up
 A, LeftArrow = Left
 S, DownArrow = Down
 D, RightArrow = Right
-T, Quit
+Escape, Quit
 """
 )
 
@@ -87,7 +87,7 @@ running = True
 
 #-- Instances --#
 snake = Snake()
-fruit = Fruit()
+fruit = Fruit(snake)
 
 #-- Main Functions --#
 def check_snake_wall_collision():
@@ -123,6 +123,13 @@ def set_global():
     f.write(str(global_high_score))
     f.close()
 
+def remove_global():
+    global global_high_score
+    global_high_score = 0
+    f = open("global_score.txt", "w")
+    f.write("0")
+    f.close()
+
 def snake_move():
     snakes[-1].x, snakes[-1].y = snake.prevX, snake.prevY
     snakes[-1].update(snakes[-1].x, snakes[-1].y)
@@ -133,11 +140,11 @@ def snake_move():
 
 def write_score(text, text2, text3):
     s = Text("#1a1a1a")
-    s.set_pos((WIDTH / 2 - 5 * 32) / 2, 300)
+    s.set_pos((WIDTH / 2 - 5 * 32 - 40) / 2, 300)
     s.write_text(text)
-    s.set_pos((WIDTH / 2 - 5 * 32) / 2, 200)
+    s.set_pos((WIDTH / 2 - 5 * 32 - 40) / 2, 200)
     s.write_text(text2)
-    s.set_pos((WIDTH / 2 - 5 * 32) / 2, 100)
+    s.set_pos((WIDTH / 2 - 5 * 32 - 40) / 2, 100)
     s.write_text(text3)
     s.clear()
 
@@ -155,7 +162,6 @@ def update():
     write_score("Score: " + str(score), "High Score: " + str(local_high_score), "Global High Score: " + str(global_high_score))
 
     if fruit.pos() == snake.pos():
-        fruit.move(snakes)
         snakes.append(SnakeBody(snake.prevX, snake.prevY))
 
     if len(snakes) > 1:
@@ -174,12 +180,13 @@ wn.onkey(snake.up, "w")
 wn.onkey(snake.l, "a")
 wn.onkey(snake.down, "s")
 wn.onkey(snake.r, "d")
-wn.onkey(leave, "t")
+wn.onkey(remove_global, "m")
 
 wn.onkey(snake.up, "Up")
 wn.onkey(snake.l, "Left")
 wn.onkey(snake.down, "Down")
 wn.onkey(snake.r, "Right")
+wn.onkey(leave, "Escape")
 
 #-- Main Loop  --#
 load()
