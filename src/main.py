@@ -138,6 +138,9 @@ def remove_global():
     global_high_score = 0
     f = open("global_score.txt", "w")
     f.write("0")
+    clear([s, a, d])
+    write_score("Score: " + str(score), "High Score: " + str(local_high_score),
+                "Global High Score: " + str(global_high_score))
     f.close()
 
 def snake_move():
