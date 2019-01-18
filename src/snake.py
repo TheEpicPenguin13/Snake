@@ -39,13 +39,13 @@ class Snake(Turtle):
     def update(self):
         self.prevX, self.prevY = self.x, self.y
 
-        if self.direction == 0:
+        if self.direction == 0:   # 0 = Right
             self.x += 1
-        elif self.direction == 1:
+        elif self.direction == 1: # 1 = Down
             self.y -= 1
-        elif self.direction == 2:
+        elif self.direction == 2: # 2 = Left
             self.x -= 1
-        else:
+        else:                     # 3 = Up
             self.y += 1
 
         self.goto(self.get_positionX(), self.get_positionY())
@@ -54,6 +54,6 @@ class Snake(Turtle):
     def die(self, snakes):
         for i in range(len(snakes) - 1):                   # When you die, the
                 snakes[1].goto(-100000, -110000)           # SnakeBody parts go into space and
-                snakes.pop(1)                              # Get removed from the snake array.
+                snakes.pop(1)                              # gets removed from the snake array.
         self.x, self.y = 0, 0
         self.goto(self.get_positionX(), self.startY)

@@ -87,7 +87,7 @@ running = True
 
 #-- Instances --#
 snake = Snake()
-fruit = Fruit(snake)
+fruit = Fruit(snakes)
 
 #-- Main Functions --#
 def check_snake_wall_collision():
@@ -162,6 +162,7 @@ def update():
     write_score("Score: " + str(score), "High Score: " + str(local_high_score), "Global High Score: " + str(global_high_score))
 
     if fruit.pos() == snake.pos():
+        fruit.move(snakes)
         snakes.append(SnakeBody(snake.prevX, snake.prevY))
 
     if len(snakes) > 1:
