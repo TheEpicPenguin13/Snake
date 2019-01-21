@@ -165,15 +165,15 @@ def write_score(text, text2, text3):
     d.write_text(text3)
 
 def write_instructions():
-    textline1.set_pos((WIDTH / 2 - 5 * 32 + 100) / 2, -50)
+    textline1.set_pos((WIDTH / 2 - 5 * 32 + 85) / 2, -50)
     textline1.write_text("- How To Play -")
-    textline1.set_pos((WIDTH / 2 - 5 * 32 + 80) / 2, -120)
+    textline1.set_pos((WIDTH / 2 - 5 * 32 + 65) / 2, -120)
     textline1.write_text("W, UpArrow - Up")
-    textline1.set_pos((WIDTH / 2 - 5 * 32 + 60) / 2, -170)
+    textline1.set_pos((WIDTH / 2 - 5 * 32 + 45) / 2, -170)
     textline1.write_text("A, LeftArrow - Left")
-    textline1.set_pos((WIDTH / 2 - 5 * 32 + 10) / 2, -220)
+    textline1.set_pos((WIDTH / 2 - 5 * 32 + -5) / 2, -220)
     textline1.write_text("S, DownArrow - Down")
-    textline1.set_pos((WIDTH / 2 - 5 * 32 + 15) / 2, -270)
+    textline1.set_pos((WIDTH / 2 - 5 * 32) / 2, -270)
     textline1.write_text("D, RightArrow - Right")
 
 #-- Load / Update --#
