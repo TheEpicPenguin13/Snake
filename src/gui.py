@@ -52,3 +52,42 @@ class Text(GUI):
 
     def write_text(self, text):
         self.write(text, font=("Arial", 24, "normal"))
+
+class Button(GUI):
+
+    def __init__(self, x, y, width, height, c):
+        GUI.__init__(self)
+
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.c = c
+
+        self.pressed = False
+
+        self.leftborder = self.x
+        self.topborder = self.y
+        self.rightborder = self.x + self.width
+        self.bottomborder = self.y + self.height
+
+        self.color(self.c)
+        self.goto(self.x, self.y)
+        self.drawButton()
+
+    def update(self):
+        self.check_if_pressed()
+
+    def drawButton(self):
+        self.fillcolor(self.c)
+        self.begin_fill()
+        for i in range(2):
+            self.forward(self.width)
+            self.right(90)
+            self.forward(self.height)
+            self.right(90)
+        self.end_fill()
+        print("Drawn")
+
+    def check_if_pressed(self, x, y):
+        print("Clicked")

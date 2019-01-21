@@ -63,7 +63,7 @@ from turtle import Screen
 from snake import Snake
 from fruit import Fruit
 from snakebody import SnakeBody
-from gui import Background, Text
+from gui import Background, Text, Button
 from time import sleep
 
 #-- Constant Vars --#
@@ -84,6 +84,7 @@ local_high_score = 0
 global_high_score = 0
 
 running = True
+hasStarted = False
 
 #-- Instances --#
 snake = Snake()
@@ -92,8 +93,14 @@ fruit = Fruit(snakes)
 s = Text("#1a1a1a")
 a = Text("#1a1a1a")
 d = Text("#1a1a1a")
-
 textline1 = Text("#1a1a1a")
+
+#start_button = Button(0, 0, 100, 100, "#ff0000")
+
+#-- Start Screen Functions --#
+def start():
+    global hasStarted
+    hasStarted = True
 
 #-- Main Functions --#
 def check_snake_wall_collision():
@@ -191,12 +198,13 @@ def clear(obj):
         i.clear()
 
 def update():
-    global score, global_high_score, snakes
+    global score, global_high_score, snakes, start_button
     global s, a, d                                                             # This whole update method is the meat of this program.
     wn.update()                                                                # It updates the window, updates the snake, and then does
     snake.update()                                                             # the collision checking. It writes the score, and runs most
     check_snake_wall_collision()                                               # of the methods from other classes.
 
+    #start_button.update()
     if fruit.pos() == snake.pos():
         fruit.move(snakes)
         snakes.append(SnakeBody(snake.prevX, snake.prevY))
@@ -220,8 +228,11 @@ def update():
 
     sleep(0.125)
 
-#-- Key Input --#
 wn.listen()
+#-- Mouse Input --$
+#wn.onclick(start_button.check_if_pressed)
+
+#-- Key Input --#
 wn.onkey(snake.up, "w")
 wn.onkey(snake.l, "a")
 wn.onkey(snake.down, "s")
@@ -235,6 +246,8 @@ wn.onkey(snake.r, "Right")
 wn.onkey(leave, "Escape")
 
 #-- Main Loop  --#
-load()
-while running:
-    update()
+start()
+if hasStarted == True:
+    load()
+    while running:
+        update()
