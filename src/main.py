@@ -59,7 +59,7 @@ Escape, Quit
 """
 )
 
-from turtle import Screen
+from turtle import *
 from snake import Snake
 from fruit import Fruit
 from snakebody import SnakeBody
@@ -90,17 +90,14 @@ hasStarted = False
 snake = Snake()
 fruit = Fruit(snakes)
 
+Background(WIDTH, HEIGHT)
+
 s = Text("#1a1a1a")
 a = Text("#1a1a1a")
 d = Text("#1a1a1a")
 textline1 = Text("#1a1a1a")
 
-#start_button = Button(0, 0, 100, 100, "#ff0000")
-
-#-- Start Screen Functions --#
-def start():
-    global hasStarted
-    hasStarted = True
+quit_button = Button(270, 80, 150, 75, "#634a25")
 
 #-- Main Functions --#
 def check_snake_wall_collision():
@@ -186,7 +183,6 @@ def write_instructions():
 #-- Load / Update --#
 def load():
     get_global()
-    Background(WIDTH, HEIGHT)
     snakes.append(snake)
     clear([s, a, d])
     write_score("Score: " + str(score), "High Score: " + str(local_high_score),
@@ -204,7 +200,9 @@ def update():
     snake.update()                                                             # the collision checking. It writes the score, and runs most
     check_snake_wall_collision()                                               # of the methods from other classes.
 
-    #start_button.update()
+    if quit_button.pressed == True:
+        leave()
+
     if fruit.pos() == snake.pos():
         fruit.move(snakes)
         snakes.append(SnakeBody(snake.prevX, snake.prevY))
@@ -229,8 +227,9 @@ def update():
     sleep(0.125)
 
 wn.listen()
-#-- Mouse Input --$
-#wn.onclick(start_button.check_if_pressed)
+
+#-- Mouse Input --#
+onscreenclick(quit_button.is_pressed)
 
 #-- Key Input --#
 wn.onkey(snake.up, "w")
@@ -246,8 +245,6 @@ wn.onkey(snake.r, "Right")
 wn.onkey(leave, "Escape")
 
 #-- Main Loop  --#
-start()
-if hasStarted == True:
-    load()
-    while running:
-        update()
+load()
+while running:
+    update()

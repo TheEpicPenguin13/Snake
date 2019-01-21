@@ -64,19 +64,19 @@ class Button(GUI):
         self.height = height
         self.c = c
 
+        self.mouseX = 0
+        self.mouseY = 0
+
         self.pressed = False
 
-        self.leftborder = self.x
-        self.topborder = self.y
-        self.rightborder = self.x + self.width
-        self.bottomborder = self.y + self.height
+        self.centerX, self.centerY = self.x + self.width / 2, self.y - self.height / 2
 
         self.color(self.c)
         self.goto(self.x, self.y)
         self.drawButton()
 
     def update(self):
-        self.check_if_pressed()
+        pass
 
     def drawButton(self):
         self.fillcolor(self.c)
@@ -87,7 +87,10 @@ class Button(GUI):
             self.forward(self.height)
             self.right(90)
         self.end_fill()
-        print("Drawn")
 
-    def check_if_pressed(self, x, y):
-        print("Clicked")
+    def is_pressed(self, x, y):
+        self.mouseX = x
+        self.mouseY = y
+        if x >= self.centerX - self.width / 2 and x <= self.centerX + self.width / 2:
+            if y >= self.centerY - self.height / 2 and y <= self.centerY + self.height / 2:
+                self.pressed = True
