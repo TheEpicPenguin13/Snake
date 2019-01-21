@@ -7,7 +7,7 @@ class Snake(Turtle):
     def __init__(self):
         Turtle.__init__(self)
 
-        self.startX = -16
+        self.startX = -16 - (5 * 32)
         self.startY = 0
 
         self.width = 1088
@@ -18,6 +18,7 @@ class Snake(Turtle):
         self.y = 0
         self.prevY = self.y
         self.direction = 0
+        self.prevDirection = 0
 
         self.shape("square")
         self.color("green")
@@ -31,10 +32,10 @@ class Snake(Turtle):
     def get_positionY(self): return self.startY + (self.y * 32)
 
     #-- Input Functions --#
-    def r(self): self.direction = 0
-    def down(self): self.direction = 1
-    def l(self): self.direction = 2
-    def up(self): self.direction = 3
+    def r(self): self.direction = 0;
+    def down(self): self.direction = 1;
+    def l(self): self.direction = 2;
+    def up(self): self.direction = 3;
 
     #-- Update --#
     def update(self):
@@ -46,7 +47,7 @@ class Snake(Turtle):
             self.y -= 1
         elif self.direction == 2: # 2 = Left
             self.x -= 1
-        else:                     # 3 = Up
+        elif self.direction == 3: # 3 = Up
             self.y += 1
 
         self.goto(self.get_positionX(), self.get_positionY())

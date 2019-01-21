@@ -93,9 +93,11 @@ s = Text("#1a1a1a")
 a = Text("#1a1a1a")
 d = Text("#1a1a1a")
 
+textline1 = Text("#1a1a1a")
+
 #-- Main Functions --#
 def check_snake_wall_collision():
-    if snake.x >= 6 or snake.xcor() <= -WIDTH / 2: # This checks whether the snake has reached certain points and if so,
+    if snake.x >= 11 or snake.xcor() <= -WIDTH / 2: # This checks whether the snake has reached certain points and if so,
         snake.die(snakes)               # kills the snake, it checks the x and y position of the snake, and afterwards
         get_highscore()                 # updates score.
         clear([s, a, d])
@@ -162,6 +164,18 @@ def write_score(text, text2, text3):
     d.set_pos((WIDTH / 2 - 5 * 32 - 40) / 2, 100)
     d.write_text(text3)
 
+def write_instructions():
+    textline1.set_pos((WIDTH / 2 - 5 * 32 + 100) / 2, -50)
+    textline1.write_text("- How To Play -")
+    textline1.set_pos((WIDTH / 2 - 5 * 32 + 80) / 2, -120)
+    textline1.write_text("W, UpArrow - Up")
+    textline1.set_pos((WIDTH / 2 - 5 * 32 + 60) / 2, -170)
+    textline1.write_text("A, LeftArrow - Left")
+    textline1.set_pos((WIDTH / 2 - 5 * 32 + 10) / 2, -220)
+    textline1.write_text("S, DownArrow - Down")
+    textline1.set_pos((WIDTH / 2 - 5 * 32 + 15) / 2, -270)
+    textline1.write_text("D, RightArrow - Right")
+
 #-- Load / Update --#
 def load():
     get_global()
@@ -170,6 +184,7 @@ def load():
     clear([s, a, d])
     write_score("Score: " + str(score), "High Score: " + str(local_high_score),
                 "Global High Score: " + str(global_high_score))
+    write_instructions()
 
 def clear(obj):
     for i in obj:

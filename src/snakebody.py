@@ -7,7 +7,7 @@ class SnakeBody(Turtle):
     def __init__(self, x, y):
         Turtle.__init__(self)
 
-        self.startX = -16
+        self.startX = -16 - (5 * 32)
         self.startY = 0
 
         self.x = x
