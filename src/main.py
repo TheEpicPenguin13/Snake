@@ -15,27 +15,6 @@ A, LeftArrow = Left
 S, DownArrow = Down
 D, RightArrow = Right
 Escape, Quit
-
-Check List:
-Title: Done
-Name: Done
-Description: Done
-Directions: Done
-Question Input: ?
-Variables: Doneww
-Two Functions: Done
-Use Of List: Done
-Strings: Done
-Console Output: Done
-Operators: Done
-Conditionals: Done
-Loops: Done
-Comparative Operators: Done
-Score/Custom Message: Done
-Commemts: Done
-Give Credit: My Own Code So Done
-Testing: Working on it
-Ask Peers To Test: Working on it
 """
 
 print(
@@ -95,7 +74,8 @@ Background(WIDTH, HEIGHT)
 s = Text("#1a1a1a")
 a = Text("#1a1a1a")
 d = Text("#1a1a1a")
-textline1 = Text("#1a1a1a")
+text = Text("#1a1a1a")
+q = Text("#1a1a1a")
 
 quit_button = Button(270, 80, 150, 75, "#634a25")
 
@@ -129,20 +109,20 @@ def leave():
 
 def get_global():
     global global_high_score
-    f = open("global_score.txt", "r")
+    f = open("data/global_score.txt", "r")
     global_high_score = int(f.read())
     f.close()
 
 def set_global():
     global global_high_score
-    f = open("global_score.txt", "w")
+    f = open("data/global_score.txt", "w")
     f.write(str(global_high_score))
     f.close()
 
 def remove_global():
     global global_high_score
     global_high_score = 0
-    f = open("global_score.txt", "w")
+    f = open("data/global_score.txt", "w")
     f.write("0")
     clear([s, a, d])
     write_score("Score: " + str(score), "High Score: " + str(local_high_score),
@@ -157,10 +137,10 @@ def snake_move():
     snakes.pop(-1)               # the end of the snake, and puts it at the front.
     snakes.insert(1, temp[0])    # This makes it look like the snake is moving.
 
-def write_score(text, text2, text3):
+def write_score(text1, text2, text3):
     s.clear()
     s.set_pos((WIDTH / 2 - 5 * 32 - 40) / 2, 300)
-    s.write_text(text)
+    s.write_text(text1)
     a.clear()
     a.set_pos((WIDTH / 2 - 5 * 32 - 40) / 2, 200)
     a.write_text(text2)
@@ -169,25 +149,28 @@ def write_score(text, text2, text3):
     d.write_text(text3)
 
 def write_instructions():
-    textline1.set_pos((WIDTH / 2 - 5 * 32 + 85) / 2, -50)
-    textline1.write_text("- How To Play -")
-    textline1.set_pos((WIDTH / 2 - 5 * 32 + 65) / 2, -120)
-    textline1.write_text("W, UpArrow - Up")
-    textline1.set_pos((WIDTH / 2 - 5 * 32 + 45) / 2, -170)
-    textline1.write_text("A, LeftArrow - Left")
-    textline1.set_pos((WIDTH / 2 - 5 * 32 + -5) / 2, -220)
-    textline1.write_text("S, DownArrow - Down")
-    textline1.set_pos((WIDTH / 2 - 5 * 32) / 2, -270)
-    textline1.write_text("D, RightArrow - Right")
+    text.set_pos((WIDTH / 2 - 5 * 32 + 150) / 2, -50)
+    text.write_text("- How To Play -")
+    text.set_pos((WIDTH / 2 - 5 * 32 + 130) / 2, -120)
+    text.write_text("W, UpArrow - Up")
+    text.set_pos((WIDTH / 2 - 5 * 32 + 110) / 2, -170)
+    text.write_text("A, LeftArrow - Left")
+    text.set_pos((WIDTH / 2 - 5 * 32 + 60) / 2, -220)
+    text.write_text("S, DownArrow - Down")
+    text.set_pos((WIDTH / 2 - 5 * 32 + 65) / 2, -270)
+    text.write_text("D, RightArrow - Right")
 
 #-- Load / Update --#
 def load():
+    global q, quit_button
     get_global()
     snakes.append(snake)
     clear([s, a, d])
     write_score("Score: " + str(score), "High Score: " + str(local_high_score),
                 "Global High Score: " + str(global_high_score))
     write_instructions()
+    q.set_pos(quit_button.centerX - 50, quit_button.centerY - 24)
+    q.write("Quit", font=("Arial", 48, "normal"))
 
 def clear(obj):
     for i in obj:
