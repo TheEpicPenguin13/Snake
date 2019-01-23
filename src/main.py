@@ -149,15 +149,15 @@ def write_score(text1, text2, text3):
     d.write_text(text3)
 
 def write_instructions():
-    text.set_pos((WIDTH / 2 - 5 * 32 + 150) / 2, -50)
+    text.set_pos((WIDTH / 2 - 5 * 32 + 85) / 2, -50)
     text.write_text("- How To Play -")
-    text.set_pos((WIDTH / 2 - 5 * 32 + 130) / 2, -120)
+    text.set_pos((WIDTH / 2 - 5 * 32 + 65) / 2, -120)
     text.write_text("W, UpArrow - Up")
-    text.set_pos((WIDTH / 2 - 5 * 32 + 110) / 2, -170)
+    text.set_pos((WIDTH / 2 - 5 * 32 + 45) / 2, -170)
     text.write_text("A, LeftArrow - Left")
-    text.set_pos((WIDTH / 2 - 5 * 32 + 60) / 2, -220)
+    text.set_pos((WIDTH / 2 - 5 * 32 + -5) / 2, -220)
     text.write_text("S, DownArrow - Down")
-    text.set_pos((WIDTH / 2 - 5 * 32 + 65) / 2, -270)
+    text.set_pos((WIDTH / 2 - 5 * 32) / 2, -270)
     text.write_text("D, RightArrow - Right")
 
 #-- Load / Update --#
@@ -169,7 +169,7 @@ def load():
     write_score("Score: " + str(score), "High Score: " + str(local_high_score),
                 "Global High Score: " + str(global_high_score))
     write_instructions()
-    q.set_pos(quit_button.centerX - 50, quit_button.centerY - 24)
+    q.set_pos(quit_button.centerX - 62, quit_button.centerY - 35)
     q.write("Quit", font=("Arial", 48, "normal"))
 
 def clear(obj):
